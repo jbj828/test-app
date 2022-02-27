@@ -53,7 +53,7 @@ jobs:
           at: .
       - run:
           name: 'Deploy to S3'
-          command: aws s3 sync dist s3://circleci-test-app
+          command: aws s3 sync dist/ s3://circleci-test-app/
 
 workflows:
   version: 2
