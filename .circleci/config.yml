@@ -6,9 +6,17 @@ jobs:
       - image: cimg/node:16.14.0
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package-lock.json" }}
+            - v1-dependencies-
       - run:
           name: Install dependencies
           command: npm install
+      - save_cache:
+          key: v1-dependencies-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
       - run:
           name: 'Run Build'
           command: npm run build
@@ -22,9 +30,17 @@ jobs:
       - image: cimg/node:16.14.0
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package-lock.json" }}
+            - v1-dependencies-
       - run:
           name: Install dependencies
           command: npm install
+      - save_cache:
+          key: v1-dependencies-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
       - run:
           name: 'Run Test'
           command: npm run test:unit
