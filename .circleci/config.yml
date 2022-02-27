@@ -7,7 +7,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: cimg/node:17.6.0
+      - image: cimg/node:16.14.0
     steps:
       - checkout
       - node/install-packages
@@ -20,15 +20,14 @@ jobs:
 
   deploy:
     docker:
-      - image: cimg/node:17.6.0
+      - image: cimg/node:16.14.0
     steps:
       - checkout
-      - run: cd dist
       - aws-s3/sync:
           arguments: |
             --acl public-read \
             --cache-control "max-age=86400"
-          from: bucket
+          from: dist
           to: 's3://circleci-test-app'
 
 workflows:
